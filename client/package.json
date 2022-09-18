@@ -1,0 +1,52 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.10.1",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.55",
+    "auth0-js": "^9.11.3",
+    "axios": "^0.19.0",
+    "chartist": "0.10.1",
+    "classnames": "2.2.6",
+    "history": "4.9.0",
+    "moment": "^2.24.0",
+    "notistack": "^0.9.7",
+    "perfect-scrollbar": "1.4.0",
+    "prop-types": "15.7.2",
+    "react": "16.9.0",
+    "react-chartist": "0.13.3",
+    "react-dom": "16.9.0",
+    "react-google-maps": "9.4.5",
+    "react-moment": "^0.9.6",
+    "react-router-dom": "5.0.1",
+    "react-scripts": "3.1.0",
+    "react-swipeable-views": "0.13.3",
+    "rellax": "^1.10.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}

@@ -1,0 +1,76 @@
+version: "3.7"
+
+volumes:
+  db-data:
+services:
+  nginx:
+    container_name: proxy-web
+    depends_on:
+      - postgres
+      - server
+      - client
+    build:
+      context: .
+      dockerfile: "nginx/Dockerfile"
+    ports:
+      - 8080:8080
+      - 80:80
+      - 443:443
+    networks:
+      - outside
+      - inside
+
+  postgres:
+    container_name: postgres
+    image: postgres:11.4-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: maxdb
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    networks:
+      - inside
+
+  client:
+    container_name: client
+    depends_on:
+      - postgres
+      - server
+    build:
+      context: .
+      dockerfile: "client/Dockerfile"
+    volumes:
+      - "./client:/app"
+      - "/app/node_modules"
+    ports:
+      - "3000"
+    environment:
+      - NODE_ENV=development
+      - HTTPS=true
+    networks:
+      - inside
+
+  server:
+    depends_on:
+      - postgres
+    container_name: server
+    entrypoint: "./entrypoint.sh"
+    build:
+      context: .
+      dockerfile: "server/Dockerfile"
+    volumes:
+      - "./server:/app"
+      - "/app/node_modules"
+    ports:
+      - "3000"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - inside
+networks:
+  outside:
+    driver: bridge 
+  inside:

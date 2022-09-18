@@ -1,0 +1,45 @@
+server {
+    root /var/www/html;
+    server_name maxcompany.xyz www.maxcompany.xyz;
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/ssl/maxcompany.xyz/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/ssl/maxcompany.xyz/privkey.pem; # managed by Certbot
+    include /etc/nginx/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/nginx/ssl-dhparams.pem; # managed by Certbot
+    location / {
+        proxy_pass https://client:3000/;
+        error_log /var/log/front_end_errors.log;
+    }
+
+}
+server{
+	root /var/www/html;
+    	server_name maxcompany.xyz www.maxcompany.xyz;
+        listen 8080 ssl;
+	ssl_certificate /etc/ssl/maxcompany.xyz/fullchain.pem; # managed by Certbot
+    	ssl_certificate_key /etc/ssl/maxcompany.xyz/privkey.pem; # managed by Certbot
+    	include /etc/nginx/options-ssl-nginx.conf; # managed by Certbot
+    	ssl_dhparam /etc/nginx/ssl-dhparams.pem; # managed by Certbot
+	location / {
+        proxy_pass https://server:3000/;
+        error_log /var/log/front_end_errors.log;
+    }
+
+}
+server {
+    if ($host = www.maxcompany.xyz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = maxcompany.xyz) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name maxcompany.xyz www.maxcompany.xyz;
+    return 404; # managed by Certbot
+}

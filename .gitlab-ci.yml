@@ -1,0 +1,20 @@
+default:
+  image: alpine:latest
+
+stages:
+  - build
+build:
+  stage: build
+  only:
+    - master
+  script:
+    #    - docker login registry.gitlab.com -u meqqorikhalil@gmail.com -p 57Xbu9_RQMiznVoTbDZ5
+    #    - docker build -t registry.gitlab.com/meqqori/reactauth0nodedocker/client ./client
+    #    - docker push registry.gitlab.com/meqqori/reactauth0nodedocker/client
+    #    - docker build -t registry.gitlab.com/meqqori/reactauth0nodedocker/server ./server
+    #    - docker push registry.gitlab.com/meqqori/reactauth0nodedocker/server
+    - git clone  https://Meqqori:Bonjour123.@gitlab.com/Meqqori/reactauth0nodedocker.git
+    - cd reactauth0nodedocker
+    - docker-compose up -d
+
+  environment: master
